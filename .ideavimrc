@@ -1,0 +1,149 @@
+let mapleader = " "
+
+set scrolloff=8                                                           
+set nu
+set relativenumber
+set incsearch
+set scrolloff=8
+set clipboard^=unnamedplus
+set idearefactormode=keep
+
+set surround
+set highlightedyank
+set nerdtree
+set notimeout
+set which-key
+
+" Newline but stay in normal mode
+nmap <S-O> o<Esc>k
+
+" Select everything
+nnoremap <C-a> ggVG
+
+" Yank to last character of line
+nnoremap Y yg_
+
+" Delete & paste without putting selection into buffer
+vnoremap <leader>p "_dP
+vnoremap <leader>d "_d
+
+" Move block of text up and down
+vmap <S-J> <Action>(MoveLineDown)
+vmap <S-K> <Action>(MoveLineUp)
+
+" Search in visually selected text
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+
+" Jump up & down and center view
+nmap <C-d> <C-d>zz
+nmap <C-u> <C-u>zz
+
+" --- Comment line ---
+map <leader>c <action>(CommentByLineComment)
+let g:WhichKeyDesc_comment_line = "<leader>c Comment line"
+
+" --- File tree ---
+let g:WhichKeyDesc_file_tree = "<leader>t File tree"
+
+nnoremap <leader>tt :NERDTreeToggle<CR>
+nnoremap <leader>tf :NERDTreeFocus<CR>
+let g:WhichKeyDesc_toggle_tree = "<leader>tt Toggle tree"
+let g:WhichKeyDesc_focus_tree = "<leader>tf Tree focus"
+
+" --- Window management ---
+let g:WhichKeyDesc_windows = "<leader>w Windows"
+
+nnoremap <TAB> :action PreviousTab<CR>
+nnoremap <S-TAB> :action NextTab<CR>
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+map <leader>ww :action CloseContent<CR>
+map <leader>wv <Action>(MoveTabRight)
+map <leader>wh <Action>(MoveTabDown)
+map <leader>wu <Action>(Unsplit)
+map <leader>wm <Action>(MaximizeEditorInSplit)
+map <leader>wd <Action>(SplitVertically)
+let g:WhichKeyDesc_windows_close = "<leader>ww Close window"
+let g:WhichKeyDesc_windows_split_vertically = "<leader>wv Split window vertically"
+let g:WhichKeyDesc_windows_split_horizontally = "<leader>wh Split window horizontally"
+let g:WhichKeyDesc_windows_unsplit = "<leader>wu Unsplit window"
+let g:WhichKeyDesc_windows_maximize = "<leader>wm Maximize window"
+let g:WhichKeyDesc_windows_duplicate = "<leader>wd Duplicate window"
+
+" --- Actions ---
+let g:WhichKeyDesc_action = "<leader>a Actions"
+
+map <leader>am <action>(ShowIntentionActions)
+map <leader>as <action>(SearchEverywhere)
+map <leader>ah <action>(ShowHoverInfo)
+let g:WhichKeyDesc_action_show_intention = "<leader>am Show intentions"
+let g:WhichKeyDesc_action_search_everywhere = "<leader>as Search everywhere"
+let g:WhichKeyDesc_action_show_hover = "<leader>ah Show hover info"
+
+" --- Refactoring ---
+let g:WhichKeyDesc_refactor = "<leader>r Refactors"
+
+map <leader>rn <Action>(RenameElement)
+map <leader>rm <Action>(ExtractMethod)
+map <leader>rv <Action>(IntroduceVariable)
+map <leader>rf <Action>(IntroduceField)
+map <leader>rs <Action>(ChangeSignature)
+map <leader>rr <Action>(Refactorings.QuickListPopupAction)
+let g:WhichKeyDesc_refactor_rename = "<leader>rn Rename element"
+let g:WhichKeyDesc_refactor_extract_method = "<leader>rm Extract method"
+let g:WhichKeyDesc_refactor_introduce_variable = "<leader>rv Introduce variable"
+let g:WhichKeyDesc_refactor_introduce_field = "<leader>rf Introduce field"
+let g:WhichKeyDesc_refactor_change_signature = "<leader>rs Change signature"
+let g:WhichKeyDesc_refactor_quicklist_popup = "<leader>rr Quicklist popup"
+
+" --- Go to code ---
+let g:WhichKeyDesc_goto = "<leader>g Go-tos"
+
+nmap <leader>gd <Action>(GotoDeclaration)
+nmap <leader>gy <Action>(GotoTypeDeclaration)
+nmap <leader>gi <Action>(GotoImplementation)
+nmap <leader>gf <Action>(GotoFile)
+nmap <leader>gu <Action>(ShowUsages)
+nmap <leader>gt <Action>(GotoTest)
+nmap <leader>gp <Action>(Back)
+nmap <leader>gn <Action>(Forward)
+let g:WhichKeyDesc_goto_declaration = "<leader>gd Go to declaration"
+let g:WhichKeyDesc_goto_type_declaration = "<leader>gy Go to type declaration"
+let g:WhichKeyDesc_goto_implementation = "<leader>gi Go to implementation"
+let g:WhichKeyDesc_goto_file = "<leader>gf Go to file"
+let g:WhichKeyDesc_show_usages = "<leader>gu Show usages"
+let g:WhichKeyDesc_goto_test = "<leader>gt Go to test"
+let g:WhichKeyDesc_go_back = "<leader>gp Go to previous"
+let g:WhichKeyDesc_go_forward = "<leader>gn Go to next"
+
+" --- Errors ---
+let g:WhichKeyDesc_error = "<leader>e Errors"
+
+map <leader>en <Action>(GotoNextError)<Action>(ShowHoverInfo)
+map <leader>ep <Action>(GotoPreviousError)<Action>(ShowHoverInfo)
+let g:WhichKeyDesc_error_next = "<leader>en Go to next error"
+let g:WhichKeyDesc_error_previous = "<leader>ep Go to previous error"
+
+" --- Harpooner ---
+let g:WhichKeyDesc_harpoon = "<leader>h Harpoon"
+
+nmap <leader>h1 <action>(HarpoonerOpenFile0)
+nmap <leader>h2 <action>(HarpoonerOpenFile1)
+nmap <leader>h3 <action>(HarpoonerOpenFile2)
+nmap <leader>h4 <action>(HarpoonerOpenFile3)
+let g:WhichKeyDesc_harpoon_file_1 = "<leader>h1 Harpoon open file 1"
+let g:WhichKeyDesc_harpoon_file_2 = "<leader>h2 Harpoon open file 2"
+let g:WhichKeyDesc_harpoon_file_3 = "<leader>h3 Harpoon open file 3"
+let g:WhichKeyDesc_harpoon_file_4 = "<leader>h4 Harpoon open file 4"
+
+nmap <leader>hm <action>(HarpoonerQuickMenu)
+nmap <leader>ha <action>(HarpoonerAddFile)
+let g:WhichKeyDesc_harpoon_menu = "<leader>hm Harpoon menu"
+let g:WhichKeyDesc_harpoon_add_file = "<leader>ha Harpoon add file"
+
+nmap <leader>hn <action>(HarpoonerNextFileAction)
+nmap <leader>hp <action>(HarpoonerPreviousFileAction)
+let g:WhichKeyDesc_harpoon_next_file = "<leader>hn Harpoon next file"
+let g:WhichKeyDesc_harpoon_previous_file = "<leader>hp Harpoon previous file"
