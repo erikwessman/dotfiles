@@ -9,31 +9,30 @@ return require('packer').startup(function(use)
 
   use {
 	  'nvim-telescope/telescope.nvim', tag = '0.1.5',
-	  -- or                            , branch = '0.1.x',
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }
 
-  use { "ellisonleao/gruvbox.nvim" }
+  use "sindrets/diffview.nvim"
+
+  use "ellisonleao/gruvbox.nvim"
 
   use "nvim-tree/nvim-tree.lua"
 
   use "nvim-tree/nvim-web-devicons"
 
-  use { "tpope/vim-commentary" }
+  use "tpope/vim-commentary"
 
-  use "machakann/vim-highlightedyank" 
+  use "machakann/vim-highlightedyank"
+
+  use "liuchengxu/vim-which-key"
 
   use({
         "kylechui/nvim-surround",
-        tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+        tag = "*",
         config = function()
-            require("nvim-surround").setup({
-                -- Configuration here, or leave empty to use defaults
-            })
+            require("nvim-surround").setup({ })
         end
     })
-
-  use "liuchengxu/vim-which-key"
 
   use {
       'nvim-lualine/lualine.nvim',
@@ -54,12 +53,26 @@ return require('packer').startup(function(use)
   use({
       "Pocco81/auto-save.nvim",
       config = function()
-          require("auto-save").setup {
-              -- your config goes here
-              -- or just leave it empty :)
-          }
+          require("auto-save").setup { }
       end,
   })
+
+  use {
+    'williamboman/mason.nvim',
+    config = function()
+      require("mason").setup()
+    end
+  }
+
+  use {
+    'williamboman/mason-lspconfig.nvim', after = "mason.nvim",
+    config = function()
+      require("mason-lspconfig").setup {
+        ensure_installed = { "omnisharp", "pylsp", "yamlls", "bashls", "cssls", "html", "jsonls", "ts_ls", "lua_ls", "rust_analyzer" },
+        automatic_installation = true,
+      }
+    end
+  }
 
   use {
 	  'VonHeikemen/lsp-zero.nvim',
@@ -79,7 +92,7 @@ return require('packer').startup(function(use)
 
   use {
     'nvim-treesitter/nvim-treesitter-context',
-    requires = {'nvim-treesitter/nvim-treesitter'}, -- This line ensures that nvim-treesitter is installed as a dependency
+    requires = {'nvim-treesitter/nvim-treesitter'},
     config = function()
       require'treesitter-context'.setup{
         enable = true,
