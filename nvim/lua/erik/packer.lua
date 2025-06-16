@@ -16,6 +16,8 @@ return require('packer').startup(function(use)
 
   use "ellisonleao/gruvbox.nvim"
 
+  use "justinmk/vim-sneak"
+
   use "nvim-tree/nvim-tree.lua"
 
   use "nvim-tree/nvim-web-devicons"
@@ -25,6 +27,15 @@ return require('packer').startup(function(use)
   use "machakann/vim-highlightedyank"
 
   use "liuchengxu/vim-which-key"
+
+  use({
+        "RRethy/vim-illuminate",
+        config = function()
+          require ('illuminate').configure({
+            under_cursor = true,
+          })
+        end
+    })
 
   use({
         "kylechui/nvim-surround",
