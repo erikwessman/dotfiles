@@ -17,7 +17,7 @@ end)
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = {'tsserver', 'pylsp', 'html', 'cssls', 'jdtls', 'jsonls', 'yamlls', 'bashls', 'dockerls', 'marksman'},
+  ensure_installed = {'pylsp', 'html', 'cssls', 'jdtls', 'jsonls', 'yamlls', 'bashls', 'dockerls', 'marksman'},
   handlers = {
     lsp_zero.default_setup,
     lua_ls = function()
