@@ -28,6 +28,8 @@ return require('packer').startup(function(use)
 
   use "liuchengxu/vim-which-key"
 
+  use "tpope/vim-fugitive"
+
   use({
         "RRethy/vim-illuminate",
         config = function()
