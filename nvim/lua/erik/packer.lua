@@ -12,8 +12,6 @@ return require('packer').startup(function(use)
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }
 
-  use "sindrets/diffview.nvim"
-
   use "ellisonleao/gruvbox.nvim"
 
   use "justinmk/vim-sneak"
