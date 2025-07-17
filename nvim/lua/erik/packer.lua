@@ -101,6 +101,14 @@ return require('packer').startup(function(use)
 	  }
   }
 
+  use "nvim-lua/plenary.nvim"
+
+  use {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    requires = { {"nvim-lua/plenary.nvim"} }
+  }
+
   use {
     'nvim-treesitter/nvim-treesitter-context',
     requires = {'nvim-treesitter/nvim-treesitter'},
@@ -117,6 +125,14 @@ return require('packer').startup(function(use)
         zindex = 20,
         on_attach = nil,
       }
+    end
+  }
+
+  use {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = function()
+        require("nvim-autopairs").setup {}
     end
   }
 
