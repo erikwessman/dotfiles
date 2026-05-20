@@ -1,24 +1,35 @@
 let mapleader = " "
 
-set scrolloff=8                                                           
+" --- Core Settings ---
 set nu
 set relativenumber
 set incsearch
-set scrolloff=8
+set scrolloff=8                                                           
 set clipboard^=unnamedplus
 set idearefactormode=keep
+set ideajoin
 
+" --- Plugins ---
 set surround
 set highlightedyank
 set nerdtree
 set notimeout
 set which-key
+set sneak
+set commentary
+set argtextobj
+set exchange
+set textobj-entire
 
+" --- Navigation & Search ---
 " Newline but stay in normal mode
 nmap <S-O> o<Esc>k
 
 " Select everything
 nnoremap <C-a> ggVG
+
+" Exit insert mode
+inoremap <C-k> <Esc>
 
 " Yank to last character of line
 nnoremap Y yg_
@@ -38,19 +49,10 @@ vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 nmap <C-d> <C-d>zz
 nmap <C-u> <C-u>zz
 
-" --- Comment line ---
-map <leader>c <action>(CommentByLineComment)
-let g:WhichKeyDesc_comment_line = "<leader>c Comment line"
+" Clear search highlights with ESC
+nnoremap <silent> <Esc> :nohlsearch<CR>
 
-" --- File tree ---
-let g:WhichKeyDesc_file_tree = "<leader>t File tree"
-
-nnoremap <leader>tt :NERDTreeToggle<CR>
-nnoremap <leader>tf :NERDTreeFocus<CR>
-let g:WhichKeyDesc_toggle_tree = "<leader>tt Toggle tree"
-let g:WhichKeyDesc_focus_tree = "<leader>tf Tree focus"
-
-" --- Window management ---
+" --- Window Management ---
 let g:WhichKeyDesc_windows = "<leader>w Windows"
 
 nnoremap <TAB> :action PreviousTab<CR>
@@ -60,31 +62,35 @@ nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
 map <leader>ww :action CloseContent<CR>
-map <leader>wv <Action>(MoveTabRight)
-map <leader>wh <Action>(MoveTabDown)
+map <leader>wv <Action>(SplitVertically)
+map <leader>wh <Action>(SplitHorizontally)
 map <leader>wu <Action>(Unsplit)
 map <leader>wm <Action>(MaximizeEditorInSplit)
-map <leader>wd <Action>(SplitVertically)
 let g:WhichKeyDesc_windows_close = "<leader>ww Close window"
 let g:WhichKeyDesc_windows_split_vertically = "<leader>wv Split window vertically"
 let g:WhichKeyDesc_windows_split_horizontally = "<leader>wh Split window horizontally"
 let g:WhichKeyDesc_windows_unsplit = "<leader>wu Unsplit window"
 let g:WhichKeyDesc_windows_maximize = "<leader>wm Maximize window"
-let g:WhichKeyDesc_windows_duplicate = "<leader>wd Duplicate window"
 
 " --- Actions ---
 let g:WhichKeyDesc_action = "<leader>a Actions"
-
 map <leader>am <action>(ShowIntentionActions)
-map <leader>as <action>(SearchEverywhere)
 map <leader>ah <action>(ShowHoverInfo)
 let g:WhichKeyDesc_action_show_intention = "<leader>am Show intentions"
-let g:WhichKeyDesc_action_search_everywhere = "<leader>as Search everywhere"
 let g:WhichKeyDesc_action_show_hover = "<leader>ah Show hover info"
+
+" Code Action Shortcut (mimics VS Code Cmd+.)
+map <leader>. <action>(ShowIntentionActions)
+let g:WhichKeyDesc_action_quick_fix = "<leader>. Quick fix / Intention"
+
+" Global Search / Grep Project
+map <leader>sp <Action>(FindInPath)
+map <leader>sf <action>(SearchEverywhere)
+let g:WhichKeyDesc_search_project = "<leader>sp Search project"
+let g:WhichKeyDesc_action_search_everywhere = "<leader>sf Search everywhere"
 
 " --- Refactoring ---
 let g:WhichKeyDesc_refactor = "<leader>r Refactors"
-
 map <leader>rn <Action>(RenameElement)
 map <leader>rm <Action>(ExtractMethod)
 map <leader>rv <Action>(IntroduceVariable)
@@ -98,52 +104,61 @@ let g:WhichKeyDesc_refactor_introduce_field = "<leader>rf Introduce field"
 let g:WhichKeyDesc_refactor_change_signature = "<leader>rs Change signature"
 let g:WhichKeyDesc_refactor_quicklist_popup = "<leader>rr Quicklist popup"
 
-" --- Go to code ---
-let g:WhichKeyDesc_goto = "<leader>g Go-tos"
+" --- Go to Code ---
+nmap gd <Action>(GotoDeclaration)
+nmap gy <Action>(GotoTypeDeclaration)
+nmap gi <Action>(GotoImplementation)
+nmap gf <Action>(GotoFile)
+nmap gu <Action>(ShowUsages)
+nmap gt <Action>(GotoTest)
+nmap gp <Action>(Back)
+nmap gn <Action>(Forward)
+nmap gc <Action>(JumpToNextChange)
 
-nmap <leader>gd <Action>(GotoDeclaration)
-nmap <leader>gy <Action>(GotoTypeDeclaration)
-nmap <leader>gi <Action>(GotoImplementation)
-nmap <leader>gf <Action>(GotoFile)
-nmap <leader>gu <Action>(ShowUsages)
-nmap <leader>gt <Action>(GotoTest)
-nmap <leader>gp <Action>(Back)
-nmap <leader>gn <Action>(Forward)
-let g:WhichKeyDesc_goto_declaration = "<leader>gd Go to declaration"
-let g:WhichKeyDesc_goto_type_declaration = "<leader>gy Go to type declaration"
-let g:WhichKeyDesc_goto_implementation = "<leader>gi Go to implementation"
-let g:WhichKeyDesc_goto_file = "<leader>gf Go to file"
-let g:WhichKeyDesc_show_usages = "<leader>gu Show usages"
-let g:WhichKeyDesc_goto_test = "<leader>gt Go to test"
-let g:WhichKeyDesc_go_back = "<leader>gp Go to previous"
-let g:WhichKeyDesc_go_forward = "<leader>gn Go to next"
+" --- Git / VCS ---
+let g:WhichKeyDesc_git = "<leader>g Git"
+map <leader>gb <Action>(Git.Branches)
+map <leader>gl <Action>(Vcs.Show.Log)
+map <leader>gd <Action>(Diff.ShowDiff)
+map <leader>gc <Action>(CheckinProject)
+map <leader>gp <Action>(Git.Push)
+map <leader>gu <Action>(Vcs.UpdateProject)
+let g:WhichKeyDesc_git_branches = "<leader>gb Git branches"
+let g:WhichKeyDesc_git_log = "<leader>gl Git log"
+let g:WhichKeyDesc_git_diff = "<leader>gd Git diff"
+let g:WhichKeyDesc_git_commit = "<leader>gc Commit project"
+let g:WhichKeyDesc_git_push = "<leader>gp Push changes"
+let g:WhichKeyDesc_git_update = "<leader>gu Pull/Update project"
+
+" --- Debugger ---
+let g:WhichKeyDesc_debug = "<leader>d Debug"
+map <leader>db <Action>(ToggleLineBreakpoint)
+map <leader>dd <Action>(Debug)
+map <leader>dr <Action>(Run)
+map <leader>dn <Action>(StepOver)
+map <leader>di <Action>(StepInto)
+map <leader>dc <Action>(Resume)
+let g:WhichKeyDesc_debug_toggle_breakpoint = "<leader>db Toggle breakpoint"
+let g:WhichKeyDesc_debug_start = "<leader>dd Start debugger"
+let g:WhichKeyDesc_debug_run = "<leader>dr Run program"
+let g:WhichKeyDesc_debug_step_over = "<leader>dn Step over"
+let g:WhichKeyDesc_debug_step_into = "<leader>di Step into"
+let g:WhichKeyDesc_debug_resume = "<leader>dc Resume/Continue"
 
 " --- Errors ---
 let g:WhichKeyDesc_error = "<leader>e Errors"
-
 map <leader>en <Action>(GotoNextError)<Action>(ShowHoverInfo)
 map <leader>ep <Action>(GotoPreviousError)<Action>(ShowHoverInfo)
 let g:WhichKeyDesc_error_next = "<leader>en Go to next error"
 let g:WhichKeyDesc_error_previous = "<leader>ep Go to previous error"
 
-" --- Harpooner ---
-let g:WhichKeyDesc_harpoon = "<leader>h Harpoon"
-
-nmap <leader>h1 <action>(HarpoonerOpenFile0)
-nmap <leader>h2 <action>(HarpoonerOpenFile1)
-nmap <leader>h3 <action>(HarpoonerOpenFile2)
-nmap <leader>h4 <action>(HarpoonerOpenFile3)
-let g:WhichKeyDesc_harpoon_file_1 = "<leader>h1 Harpoon open file 1"
-let g:WhichKeyDesc_harpoon_file_2 = "<leader>h2 Harpoon open file 2"
-let g:WhichKeyDesc_harpoon_file_3 = "<leader>h3 Harpoon open file 3"
-let g:WhichKeyDesc_harpoon_file_4 = "<leader>h4 Harpoon open file 4"
-
-nmap <leader>hm <action>(HarpoonerQuickMenu)
-nmap <leader>ha <action>(HarpoonerAddFile)
-let g:WhichKeyDesc_harpoon_menu = "<leader>hm Harpoon menu"
-let g:WhichKeyDesc_harpoon_add_file = "<leader>ha Harpoon add file"
-
-nmap <leader>hn <action>(HarpoonerNextFileAction)
-nmap <leader>hp <action>(HarpoonerPreviousFileAction)
-let g:WhichKeyDesc_harpoon_next_file = "<leader>hn Harpoon next file"
-let g:WhichKeyDesc_harpoon_previous_file = "<leader>hp Harpoon previous file"
+" --- Navigation Panels ---
+let g:WhichKeyDesc_open = "<leader>o Open panels"
+map <leader>ff <Action>(RecentFiles)
+map <leader>fs <Action>(FileStructurePopup)
+map <leader>ot <Action>(ActivateTerminalToolWindow)
+map <leader>op <Action>(ActivateProjectToolWindow)
+let g:WhichKeyDesc_recent_files = "<leader>ff Recent files"
+let g:WhichKeyDesc_file_structure_popup = "<leader>fs File structure popup"
+let g:WhichKeyDesc_open_terminal = "<leader>ot Toggle terminal panel"
+let g:WhichKeyDesc_open_project = "<leader>op Toggle project panel"
