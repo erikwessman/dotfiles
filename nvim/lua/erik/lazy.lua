@@ -19,7 +19,6 @@ vim.env.PIP_TRUSTED_HOST = "pypi.org pypi.python.org files.pythonhosted.org"
 require("lazy").setup({
   {
     'nvim-telescope/telescope.nvim',
-    tag = '0.1.5',
     dependencies = { 'nvim-lua/plenary.nvim' }
   },
 
