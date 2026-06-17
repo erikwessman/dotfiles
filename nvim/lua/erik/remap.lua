@@ -52,3 +52,39 @@ vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
 
+-- --- IntelliJ .ideavimrc Alignment Mappings ---
+
+-- Exit insert mode with C-k
+vim.keymap.set("i", "<C-k>", "<Esc>")
+
+-- Search in visually selected text
+vim.keymap.set("v", "//", [[y/\V<C-R>=escape(@",'/\')<CR><CR>]], { noremap = true })
+
+-- Clear search highlights with ESC
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { silent = true })
+
+-- Tab switching / Buffer switching (Previous/Next tab)
+vim.keymap.set("n", "<TAB>", "<cmd>tabnext<CR>")
+vim.keymap.set("n", "<S-TAB>", "<cmd>tabprevious<CR>")
+
+-- Window/Split Management
+vim.keymap.set("n", "<leader>ww", "<cmd>q<CR>")
+vim.keymap.set("n", "<leader>wv", "<C-w>v")
+vim.keymap.set("n", "<leader>wh", "<C-w>s")
+vim.keymap.set("n", "<leader>wu", "<C-w>o")
+vim.keymap.set("n", "<leader>wm", "<C-w>_|<C-w>\\|")
+
+-- Go to Code
+vim.keymap.set("n", "gp", "<C-o>")
+vim.keymap.set("n", "gn", "<C-i>")
+vim.keymap.set("n", "gc", "]c")
+
+-- Git / VCS (using vim-fugitive)
+vim.keymap.set("n", "<leader>gc", "<cmd>Git commit<CR>")
+vim.keymap.set("n", "<leader>gp", "<cmd>Git push<CR>")
+vim.keymap.set("n", "<leader>gu", "<cmd>Git pull<CR>")
+
+-- Navigation Panels
+vim.keymap.set("n", "<leader>ot", "<cmd>terminal<CR>")
+vim.keymap.set("n", "<leader>op", "<cmd>NvimTreeToggle<CR>")
+

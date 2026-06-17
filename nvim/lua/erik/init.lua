@@ -1,5 +1,6 @@
 require("erik.remap")
 require("erik.set")
+require("erik.lazy")
 
 -- disable netrw at the very start of your init.lua
 vim.g.loaded_netrw = 1
