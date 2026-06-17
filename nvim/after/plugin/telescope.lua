@@ -13,3 +13,13 @@ vim.keymap.set('n', '<leader>ff', builtin.oldfiles, {})
 vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, {})
 vim.keymap.set('n', '<leader>gb', builtin.git_branches, {})
 vim.keymap.set('n', '<leader>gl', builtin.git_commits, {})
+
+-- Configure and load telescope-ui-select extension
+require('telescope').setup({
+  extensions = {
+    ["ui-select"] = {
+      require("telescope.themes").get_dropdown {}
+    }
+  }
+})
+require("telescope").load_extension("ui-select")

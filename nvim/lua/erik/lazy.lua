@@ -33,13 +33,16 @@ require("lazy").setup({
 
   "nvim-tree/nvim-web-devicons",
 
-  "tpope/vim-commentary",
-
-  "machakann/vim-highlightedyank",
-
   "liuchengxu/vim-which-key",
 
   "tpope/vim-fugitive",
+
+  {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require('gitsigns').setup()
+    end
+  },
 
   {
     "RRethy/vim-illuminate",
@@ -82,23 +85,9 @@ require("lazy").setup({
     end,
   },
 
-  {
-    'williamboman/mason.nvim',
-    config = function()
-      require("mason").setup()
-    end
-  },
+  "williamboman/mason.nvim",
 
-  {
-    'williamboman/mason-lspconfig.nvim',
-    dependencies = { 'williamboman/mason.nvim' },
-    config = function()
-      require("mason-lspconfig").setup {
-        ensure_installed = { "omnisharp", "pylsp", "yamlls", "bashls", "cssls", "html", "jsonls", "ts_ls", "lua_ls", "rust_analyzer" },
-        automatic_installation = true,
-      }
-    end
-  },
+  "williamboman/mason-lspconfig.nvim",
 
   -- LSP Support
   'neovim/nvim-lspconfig',
@@ -115,6 +104,10 @@ require("lazy").setup({
   },
 
   "nvim-lua/plenary.nvim",
+
+  {
+    'nvim-telescope/telescope-ui-select.nvim'
+  },
 
   {
     "ThePrimeagen/harpoon",

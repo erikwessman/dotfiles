@@ -28,7 +28,12 @@ local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = {'pylsp', 'html', 'cssls', 'jdtls', 'jsonls', 'yamlls', 'bashls', 'dockerls', 'marksman'},
+  ensure_installed = {
+    "omnisharp", "pylsp", "yamlls", "bashls", "cssls", "html",
+    "jsonls", "ts_ls", "lua_ls", "rust_analyzer", "jdtls",
+    "dockerls", "marksman"
+  },
+  automatic_installation = true,
   handlers = {
     function(server_name)
       require('lspconfig')[server_name].setup({
@@ -66,3 +71,7 @@ cmp.setup({
     ['<C-Space>'] = cmp.mapping.complete(),
   }),
 })
+
+-- Integrate nvim-autopairs with nvim-cmp (automatically add parentheses on confirmation)
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())

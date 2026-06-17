@@ -63,9 +63,11 @@ vim.keymap.set("v", "//", [[y/\V<C-R>=escape(@",'/\')<CR><CR>]], { noremap = tru
 -- Clear search highlights with ESC
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { silent = true })
 
--- Tab switching / Buffer switching (Previous/Next tab)
-vim.keymap.set("n", "<TAB>", "<cmd>tabnext<CR>")
-vim.keymap.set("n", "<S-TAB>", "<cmd>tabprevious<CR>")
+-- Tab switching / Buffer switching (using native gt / gT; commented out <TAB> to preserve standard <C-i> jump navigation)
+-- vim.keymap.set("n", "<TAB>", "<cmd>tabnext<CR>")
+-- vim.keymap.set("n", "<S-TAB>", "<cmd>tabprevious<CR>")
+vim.keymap.set("n", "gt", "<cmd>tabnext<CR>")
+vim.keymap.set("n", "gT", "<cmd>tabprevious<CR>")
 
 -- Window/Split Management
 vim.keymap.set("n", "<leader>ww", "<cmd>q<CR>")
