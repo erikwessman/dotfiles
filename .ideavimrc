@@ -84,10 +84,13 @@ map <leader>. <action>(ShowIntentionActions)
 let g:WhichKeyDesc_action_quick_fix = "<leader>. Quick fix / Intention"
 
 " Global Search / Grep Project
+let g:WhichKeyDesc_search = "<leader>s Search"
 map <leader>sp <Action>(FindInPath)
-map <leader>sf <action>(SearchEverywhere)
+map <leader>sf <Action>(GotoFile)
+map <leader>sa <Action>(SearchEverywhere)
 let g:WhichKeyDesc_search_project = "<leader>sp Search project"
-let g:WhichKeyDesc_action_search_everywhere = "<leader>sf Search everywhere"
+let g:WhichKeyDesc_search_files = "<leader>sf Search files"
+let g:WhichKeyDesc_search_all = "<leader>sa Search everywhere"
 
 " --- Refactoring ---
 let g:WhichKeyDesc_refactor = "<leader>r Refactors"

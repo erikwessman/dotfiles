@@ -140,5 +140,16 @@ require("lazy").setup({
     config = function()
       require("nvim-autopairs").setup({})
     end
+  },
+
+  {
+    name = "jira-links",
+    dir = "~/devel/personal/jira-links",
+    ft = { "markdown" },
+    config = function()
+      require("jira-links").setup({
+        base_url = "https://osttra.atlassian.net/browse/",
+      })
+    end,
   }
 })

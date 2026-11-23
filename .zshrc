@@ -90,7 +90,8 @@ setopt SHARE_HISTORY
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$HOME/go/bin
 export PATH=$PATH:$HOME/.local/bin
-export PATH=$PATH:$HOME/devel/my-binaries
+export PATH=$PATH:$HOME/devel/personal/my-binaries
+export PATH=$PATH:$HOME/devel/personal/my-binaries/cagent
 export NVM_DIR="$HOME/.nvm"
 export NVM_SYMLINK_CURRENT=true
 export EDITOR=nvim
@@ -115,15 +116,17 @@ alias la='ls -A'
 alias l='ls -CF'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias lzd='lazydocker'
-alias gpc='globalprotect connect -g gw.trioptima.com'
+alias gpc='globalprotect connect -g "EU Internal"'
 alias gpd='globalprotect disconnect'
 alias gpr='globalprotect rediscover-network'
 alias kerberos='kinit_kerberos'
-alias kube-auth-dev="source $HOME/devel/auth/triauth-config/dev/openstack/os-login triauth-dev"
-alias kube-auth-uat="source $HOME/devel/auth/triauth-config/uat/openstack/os-login triauth-uat triauth-dev"
-alias kube-auth-prod="source $HOME/devel/auth/triauth-config/prod/openstack/os-login triauth-prod triauth-dev"
-alias kube-vent-dev="source $HOME/devel/vent/trivent-config/dev/openstack/k8s-login"
-alias kube-vent-prod="source $HOME/devel/vent/trivent-config/prod/openstack/k8s-login"
+alias kube-auth-dev="source $HOME/devel/auth/config/os-login triauth-dev"
+alias kube-auth-uat="source $HOME/devel/auth/config/os-login triauth-uat triauth-dev"
+alias kube-auth-prod="source $HOME/devel/auth/config/os-login triauth-prod triauth-dev"
+alias kube-vent-dev="source $HOME/devel/vent/config/os-login trivent-dev"
+alias kube-vent-prod="source $HOME/devel/vent/config/os-login trivent-prod"
+alias mkubectl="minikube kubectl --"
+alias ad="pass -c sites/active_directory/erikw"
 
 
 # function to fetch a Kerberos ticket
@@ -179,3 +182,25 @@ zle-line-init() {
 zle -N zle-line-init
 
 export NVM_SYMLINK_CURRENT=true
+
+# bun completions
+[ -s "/home/erikw/.bun/_bun" ] && source "/home/erikw/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+eval "$(mise activate zsh)"
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/erikw/.local/bin:$PATH"
+
+# This shit slows down the terminal like crazy. Uncomment when using go
+# export gvm_no_proclike=1
+# [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+
+# Cluster tooling PATH and completions
+export PATH="$HOME/bin:$PATH"
+if command -v kubectl >/dev/null 2>&1; then source <(kubectl completion zsh); fi
+if command -v flux >/dev/null 2>&1; then source <(flux completion zsh); fi
+if command -v helm >/dev/null 2>&1; then source <(helm completion zsh); fi
